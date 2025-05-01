@@ -1,0 +1,25 @@
+🕒 What is TimeUtils?
+TimeUtils is a utility class designed to simplify time-related operations in Minecraft plugin development. Since Minecraft operates in ticks (where 1 second = 20 ticks), dealing with delays, cooldowns, and timers often requires constant conversions.
+
+This class helps you:
+
+- Convert between seconds, minutes, and ticks
+
+- Format time nicely (e.g., "2m 30s")
+
+- Parse formatted time strings back into ticks
+
+💡 Why Use It?
+When you're scheduling tasks, creating cooldowns, or displaying countdowns, working with ticks directly can be error-prone and hard to read.
+TimeUtils makes your code cleaner, easier to understand, and less repetitive.
+
+✅ Examples
+TimeUtils.secondsToTicks(10);         // ➤ 200 ticks
+TimeUtils.formatTicks(280);           // ➤ "14s"
+TimeUtils.parseFormattedTime("1m");   // ➤ 1200 ticks
+
+You can also use it to delay events:
+
+Bukkit.getScheduler().runTaskLater(plugin, () -> {
+    player.sendMessage("Boom!");
+}, TimeUtils.secondsToTicks(5)); // 5-second delay
