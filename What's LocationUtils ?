@@ -1,0 +1,21 @@
+🗺️ What is LocationUtils?
+LocationUtils is a utility class designed to simplify common operations with Locations in Minecraft. It provides methods for working with coordinates in the game world, making tasks like teleporting players, checking distances, and validating safe positions easier.
+
+⚙️ Key Features:
+- Centering a Location: Adjusts a given location to the center of the block, which is useful for teleportation or calculations that require more precision.
+
+- Flat Distance Calculation: Measures the horizontal distance (ignoring height) between two locations, which is useful for proximity checks.
+
+- Safe Location Check: Verifies if a location is safe to teleport a player (no solid blocks above or at the player’s feet, with solid ground below).
+
+- Safe Teleportation: Teleports a player to a safe spot (above the ground level and away from obstacles).
+
+✅ Examples :
+
+Location centered = LocationUtils.centerBlock(player.getLocation());
+
+if (LocationUtils.isSafeLocation(centered)) {
+    player.sendMessage("This location is safe!");
+}
+
+LocationUtils.teleportSafely(player, new Location(world, x, y, z));
