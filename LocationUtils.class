@@ -1,0 +1,65 @@
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+
+public class LocationUtils {
+
+    /**
+     * Rounds a location to the center of the block (X.5, Y, Z.5).
+     */
+    public static Location centerBlock(Location loc) {
+        return new Location(
+            loc.getWorld(),
+            loc.getBlockX() + 0.5,
+            loc.getY(),
+            loc.getBlockZ() + 0.5,
+            loc.getYaw(),
+            loc.getPitch()
+        );
+    }
+
+    /**
+     * Returns the distance in blocks between two locations, ignoring Y axis.
+     */
+    public static double flatDistance(Location a, Location b) {
+        if (a.getWorld() != b.getWorld()) return Double.MAX_VALUE;
+
+        double dx = a.getX() - b.getX();
+        double dz = a.getZ() - b.getZ();
+        return Math.sqrt(dx * dx + dz * dz);
+    }
+
+    /**
+     * Checks if a location is safe to teleport a player (solid ground and enough air).
+     */
+    public static boolean isSafeLocation(Location loc) {
+        World world = loc.getWorld();
+        if (world == null) return false;
+
+        Block feet = world.getBlockAt(loc);
+        Block head = world.getBlockAt(loc.clone().add(0, 1, 0));
+        Block ground = world.getBlockAt(loc.clone().add(0, -1, 0));
+
+        return !feet.getType().isSolid()
+            && !head.getType().isSolid()
+            && ground.getType().isSolid();
+    }
+
+    /**
+     * Teleports a player to a safe version of the given location.
+     * Returns true if successful.
+     */
+    public static boolean teleportSafely(Player player, Location loc) {
+        Location safeLoc = loc.clone();
+        for (int y = loc.getBlockY(); y < loc.getWorld().getMaxHeight(); y++) {
+            safeLoc.setY(y);
+            if (isSafeLocation(safeLoc)) {
+                player.teleport(centerBlock(safeLoc));
+                return true;
+            }
+        }
+        return false;
+    }
+}
