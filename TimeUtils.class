@@ -1,0 +1,60 @@
+public class TimeUtils {
+
+    public static final int TICKS_PER_SECOND = 20;
+    public static final int TICKS_PER_MINUTE = TICKS_PER_SECOND * 60;
+
+    /**
+     * Converts seconds to Minecraft ticks.
+     */
+    public static int secondsToTicks(int seconds) {
+        return seconds * TICKS_PER_SECOND;
+    }
+
+    /**
+     * Converts minutes to Minecraft ticks.
+     */
+    public static int minutesToTicks(int minutes) {
+        return minutes * TICKS_PER_MINUTE;
+    }
+
+    /**
+     * Converts ticks to seconds.
+     */
+    public static int ticksToSeconds(int ticks) {
+        return ticks / TICKS_PER_SECOND;
+    }
+
+    /**
+     * Converts ticks to a formatted string: e.g., "1m 20s".
+     */
+    public static String formatTicks(int ticks) {
+        int totalSeconds = ticksToSeconds(ticks);
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        if (minutes > 0) {
+            return minutes + "m " + seconds + "s";
+        } else {
+            return seconds + "s";
+        }
+    }
+
+    /**
+     * Converts a formatted string (e.g. "2m 30s") to ticks.
+     * Only supports format like "Xm Ys".
+     */
+    public static int parseFormattedTime(String formatted) {
+        String[] parts = formatted.split(" ");
+        int totalSeconds = 0;
+
+        for (String part : parts) {
+            if (part.endsWith("m")) {
+                totalSeconds += Integer.parseInt(part.replace("m", "")) * 60;
+            } else if (part.endsWith("s")) {
+                totalSeconds += Integer.parseInt(part.replace("s", ""));
+            }
+        }
+
+        return secondsToTicks(totalSeconds);
+    }
+}
