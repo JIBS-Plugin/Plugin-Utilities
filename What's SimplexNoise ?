@@ -1,0 +1,21 @@
+🌄 What is SimplexNoise Used For?
+SimplexNoise is a fast, efficient noise generation algorithm used to create natural-looking randomness in Minecraft plugins. It is especially useful for:
+
+- Custom terrain generation (hills, mountains, valleys)
+
+- Organic cave systems and procedural underground structures
+
+- Smooth resource or object placement across a chunk or world
+
+- Dynamic world features such as biome blending or elevation mapping
+
+Compared to Perlin Noise, SimplexNoise offers:
+
+- Better performance in 3D
+
+- Fewer visual artifacts
+
+- Smoother transitions, ideal for natural environments
+
+SimplexNoise is a powerful tool for developers who want to introduce procedural content that feels coherent, yet varied.
+
